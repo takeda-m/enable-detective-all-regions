@@ -79,8 +79,8 @@ function main(){
   # Detective有効化の確認
   for region in ${regions}; do
     info ${region}リージョンのDetective有効化を確認
-    info "aws detective list-graphs --region ${region} | jq -r .GraphList[].Arn"
-    result=$(aws detective list-graphs --region ${region} | jq -r .GraphList[].Arn 2>&1)
+    info "aws detective list-graphs --query GraphList[].Arn --region ${region} --output text"
+    result=$(aws detective list-graphs --query GraphList[].Arn --region ${region} --output text 2>&1)
     if [[ $? -ne 0 ]]; then
       err ${result}
       err ${region}リージョンのDetective有効化の確認に失敗しました。
