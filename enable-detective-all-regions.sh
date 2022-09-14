@@ -58,7 +58,7 @@ function main(){
   fi
 
   # 大阪(ap-northeast-3)、ジャカルタ(ap-southeast-3)、UAE(me-central-1)の3リージョンを対象から除外
-  info 大阪(ap-northeast-3)、ジャカルタ(ap-southeast-3)、UAE(me-central-1)の3リージョンを対象から除外
+  info '大阪(ap-northeast-3)、ジャカルタ(ap-southeast-3)、UAE(me-central-1)の3リージョンを対象から除外'
   regions=$(echo ${result} | sed -e 's/ap-northeast-3//g' -e 's/ap-southeast-3//g' -e 's/me-central-1//g')
   info ${regions}
 
