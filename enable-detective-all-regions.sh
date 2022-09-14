@@ -2,6 +2,8 @@
 ###################################################################################
 # Title         : enable-detective-all-regions.sh
 # Description   : 全リージョンのAmazon Detectiveを有効化
+#                 大阪(ap-northeast-3)、ジャカルタ(ap-southeast-3)、UAE(me-central-1)の3リージョンは
+#                 2022/09/05時点でDetectiveが利用できないため、有効化対象外となります。
 # Author        : IIJ takeda-m
 # Date          : 2022.09.05
 ###################################################################################
@@ -55,41 +57,40 @@ function main(){
     regions=${result}
   fi
 
+  # 大阪(ap-northeast-3)、ジャカルタ(ap-southeast-3)、UAE(me-central-1)の3リージョンを対象から除外
+  info 大阪(ap-northeast-3)、ジャカルタ(ap-southeast-3)、UAE(me-central-1)の3リージョンを対象から除外
+  regions=$(echo ${result} | sed -e 's/ap-northeast-3//g' -e 's/ap-southeast-3//g' -e 's/me-central-1//g')
+  info ${regions}
+
   # Detectiveを有効化
   for region in ${regions}; do
-    # 2022/09/05現在、大阪リージョンはDetectiveが利用できないため、スキップする。
-    if [[ "${region}" != "ap-northeast-3" ]]; then
-      info ${region}リージョンのDetectiveを有効化
-      info aws detective create-graph --region ${region}
-      result=$(aws detective create-graph --region ${region} 2>&1)
-      if [[ $? -ne 0 ]]; then
-        err ${result}
-        err ${region}リージョンのDetectiveの有効化に失敗しました。
-        return 1
-      else
-        info ${result}
-      fi
+    info ${region}リージョンのDetectiveを有効化
+    info aws detective create-graph --region ${region}
+    result=$(aws detective create-graph --region ${region} 2>&1)
+    if [[ $? -ne 0 ]]; then
+      err ${result}
+      err ${region}リージョンのDetectiveの有効化に失敗しました。
+      return 1
+    else
+      info ${result}
     fi
   done
 
   # Detective有効化の確認
   for region in ${regions}; do
-    # 2022/09/05現在、大阪リージョンはDetectiveが利用できないため、スキップする。
-    if [[ "${region}" != "ap-northeast-3" ]]; then
-      info ${region}リージョンのDetective有効化を確認
-      info "aws detective list-graphs --region ${region} | jq -r .GraphList[].Arn"
-      result=$(aws detective list-graphs --region ${region} | jq -r .GraphList[].Arn 2>&1)
-      if [[ $? -ne 0 ]]; then
-        err ${result}
-        err ${region}リージョンのDetective有効化の確認に失敗しました。
-        return 1
-      elif [[ -z "$result" ]]; then
-        err ${result}
-        err ${region}リージョンのDetectiveが有効になっていません。
-        return 1
-      else
-        info ${result}
-      fi
+    info ${region}リージョンのDetective有効化を確認
+    info "aws detective list-graphs --region ${region} | jq -r .GraphList[].Arn"
+    result=$(aws detective list-graphs --region ${region} | jq -r .GraphList[].Arn 2>&1)
+    if [[ $? -ne 0 ]]; then
+      err ${result}
+      err ${region}リージョンのDetective有効化の確認に失敗しました。
+      return 1
+    elif [[ -z "$result" ]]; then
+      err ${result}
+      err ${region}リージョンのDetectiveが有効になっていません。
+      return 1
+    else
+      info ${result}
     fi
   done
 
