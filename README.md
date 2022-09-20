@@ -8,7 +8,7 @@ Amazon Detective を全リージョンで有効にするスクリプトです。
 
 ### 1. CloudShell を起動する
 
-- AWS マネジメントコンソールの [>_] アイコンをクリックして CloudShell を起動する (画面右上のアカウント名の隣)
+- AWS マネジメントコンソールの [>_] アイコン(画面右上のアカウント名の隣)をクリックして CloudShell を起動する。
 
 ### 2. スクリプトをダウンロードする
 
@@ -26,6 +26,8 @@ $ git clone https://github.com/takeda-m/enable-detective-all-regions
 ```sh
 $ cd enable-detective-all-regions/
 $ ./enable-detective-all-regions.sh
+# 以下のINFOメッセージが表示されれば実行終了です。
+2022-09-20T03:08:27 [INFO] (enable-detective-all-regions.sh:111:main) 全リージョンのAmazon Detectiveを有効化 正常終了
 ```
 
 ### 4. ログを確認する
