@@ -44,6 +44,12 @@ function main(){
   local regions # リージョン一覧
   local result # コマンド実行結果
 
+  # cloudshell-userユーザで実行されていることの確認（CloudShellで実行されていることの確認）
+  if [[ "$(whoami)" != "cloudshell-user" ]] ; then
+    err 実行ユーザがcloudshell-userではありません。CloudShellで実行していることを確認して下さい。
+    return 1
+  fi
+  
   # リージョン一覧を取得
   info リージョン一覧を取得
   info aws ec2 describe-regions --output text --query Regions[].[RegionName]
