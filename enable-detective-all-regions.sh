@@ -59,8 +59,8 @@ function main(){
     err 'リージョン一覧の取得に失敗しました。'
     return 1
   else
+    info ${result}
     regions=${result}
-    info "${regions}"
   fi
 
   # 大阪(ap-northeast-3)、ジャカルタ(ap-southeast-3)、UAE(me-central-1)の3リージョンを対象から除外
@@ -78,7 +78,7 @@ function main(){
       err "${region}リージョンのDetectiveの有効化に失敗しました。"
       return 1
     else
-      info "${result}"
+      info ${result}
     fi
   done
 
@@ -96,7 +96,7 @@ function main(){
       err "${region}リージョンのDetectiveが有効になっていません。"
       return 1
     else
-      info "${result}"
+      info ${result}
     fi
   done
 
