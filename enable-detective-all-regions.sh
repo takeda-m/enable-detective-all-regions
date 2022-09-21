@@ -3,9 +3,9 @@
 # Title         : enable-detective-all-regions.sh
 # Description   : 全リージョンのAmazon Detectiveを有効化。
 #                 大阪(ap-northeast-3)、ジャカルタ(ap-southeast-3)、UAE(me-central-1)の3リージョンは、
-#                 2022/09/05時点でDetectiveが利用できないため、有効化対象外とする。
+#                 2022年9月時点でDetectiveが利用できないため、有効化対象外とする。
 # Author        : IIJ takeda-m
-# Date          : 2022.09.20
+# Date          : 2022.09.21
 ###################################################################################
 # 実行条件：Detectiveを有効化したいAWSアカウントのCloudShellで実行すること。
 # 引数：なし
