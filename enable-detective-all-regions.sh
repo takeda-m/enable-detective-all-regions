@@ -59,7 +59,7 @@ function main(){
     err 'リージョン一覧の取得に失敗しました。'
     return 1
   else
-    info "${regions}"
+    info "${result}"
     regions=${result}
   fi
 
