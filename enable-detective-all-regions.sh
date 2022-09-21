@@ -52,14 +52,14 @@ function main(){
   
   # リージョン一覧を取得
   info 'リージョン一覧を取得'
-  info 'aws ec2 describe-regions --output text --query Regions[].[RegionName]'
-  result=$(aws ec2 describe-regions --output text --query Regions[].[RegionName] 2>&1)
+  info 'aws ec2 describe-regions --query Regions[].RegionName --output text'
+  result=$(aws ec2 describe-regions --query Regions[].RegionName --output text 2>&1)
   if [[ $? -ne 0 ]]; then
     err "${result}"
     err 'リージョン一覧の取得に失敗しました。'
     return 1
   else
-    info ${result}
+    info "${regions}"
     regions=${result}
   fi
 
@@ -71,14 +71,14 @@ function main(){
   # Detectiveを有効化
   for region in ${regions}; do
     info "${region}リージョンのDetectiveを有効化"
-    info aws detective create-graph --region ${region}
-    result=$(aws detective create-graph --region ${region} 2>&1)
+    info "aws detective create-graph --region ${region} --output text"
+    result=$(aws detective create-graph --region ${region} --output text 2>&1)
     if [[ $? -ne 0 ]]; then
       err "${result}"
       err "${region}リージョンのDetectiveの有効化に失敗しました。"
       return 1
     else
-      info ${result}
+      info "${result}"
     fi
   done
 
@@ -96,7 +96,7 @@ function main(){
       err "${region}リージョンのDetectiveが有効になっていません。"
       return 1
     else
-      info ${result}
+      info "${result}"
     fi
   done
 
