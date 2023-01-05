@@ -1,4 +1,4 @@
-# [セキュアベースライン] Amazon Detective 全リージョン有効化スクリプト
+# Amazon Detective 全リージョン有効化スクリプト
 
 Amazon Detective を全リージョンで有効にするスクリプトです。
 
